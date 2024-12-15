@@ -3139,7 +3139,8 @@
             const questions = document.querySelectorAll('.question');
             const min = 21;
             const max = 42;
-            let n = Math.floor(Math.random() * ((max - min) / 7 + 1)) * 7 + min; //Define the number of random questions to display
+            // let n = Math.floor(Math.random() * ((max - min) / 7 + 1)) * 7 + min; //Define the number of random questions to display
+            const n =42
             const shuffled = [...questions].sort(() => Math.random() - 0.5).slice(0, n);
             
             // Hide all questions first
