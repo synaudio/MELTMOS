@@ -7,6 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
         integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Style for the tooltip container */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* Tooltip text style */
+        .tooltip-text {
+            visibility: hidden;
+            width: 600px;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: left;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 25px;
+            left: 0;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Tooltip text visible when active */
+        .tooltip-container.active .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,20 +61,46 @@
                 <p><strong>Thank you for participating in our experiment!</strong></p>
                 <p>
                     In this study, you will watch a clip from the TV show <em>Friends</em>. 
-
                     Please select the emotional state in the options that best describes the emotion state in the clip.
                 </p>
                 <p><strong>Please make sure to use headphones for the best experience.</strong></p>
+                <p><strong>Understanding the Emotions</strong></p>
+                <p>
+                    In this study, we focus on six basic emotions based on the theory by Paul Ekman:
+                    <ul>
+                        <li><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment. It is often expressed with smiles, laughter, or an upbeat tone.</li>
+                        <li><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair. It is often conveyed through a quieter tone, slower movements, or downcast facial expressions.</li>
+                        <li><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats. It is characterized by raised voices, sharp tones, or tense facial and bodily cues.</li>
+                        <li><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness. It is often expressed through widened eyes, shaky voices, or quickened breathing.</li>
+                        <li><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive. It can be recognized through a wrinkled nose, narrowed eyes, or a guttural tone.</li>
+                        <li><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative. It is usually marked by widened eyes, raised eyebrows, or sudden exclamations.</li>
+                    </ul>
+                    Please keep in mind that real-life emotions are often more complex, and you may encounter mixed or nuanced emotions in the clips. Focus on identifying the dominant emotion in each clip.
+                </p>
+                <p>Thank you again for your participation!</p>
             `;
 
             const chineseText = `
                 <p><strong>感谢您的参与！</strong></p>
                 <p>
                     在本实验中，您将观看一段来自电视剧《老友记》的片段。 
-                    
                     请选择您认为最能描述该片段中人物情绪的选项。
                 </p>
                 <p><strong>请确保使用耳机以获得最佳体验。</strong></p>
+                <p><strong>情绪理解说明</strong></p>
+                <p>
+                    本研究关注六种基础情绪，基于保罗·艾克曼的情绪理论：
+                    <ul>
+                        <li><strong>快乐</strong>：通过微笑、笑声或积极的语气表达。</li>
+                        <li><strong>悲伤</strong>：通常通过低垂的表情或较轻的语调表现。</li>
+                        <li><strong>愤怒</strong>：通过提高的声音或尖锐的面部表情体现。</li>
+                        <li><strong>恐惧</strong>：通过张大的眼睛、颤抖的声音或急促的呼吸表现。</li>
+                        <li><strong>厌恶</strong>：通过皱鼻子或强烈的负面反应展现。</li>
+                        <li><strong>惊讶</strong>：通过睁大的眼睛、抬高的眉毛或突然的感叹表现。</li>
+                    </ul>
+                    请注意，现实生活中的情绪往往更复杂，您可能会遇到混合或细微的情绪表达。请着重识别片段中最显著的情绪。
+                </p>
+                <p>再次感谢您的参与！</p>
             `;
 
             // 根据用户的语言设置选择显示中文或英文
@@ -49,6 +110,7 @@
             }
         });
     </script>
+
 
     <div id="experiment-description"></div>
 
@@ -116,21 +178,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v1-d16_u7_Ran_Gne_best" id="v1-d16_u7_Ran_Gne_best_1" value="anger">
+                            <input class="form-check-input best-keyword" type="radio" name="v1-d16_u7_Ran_Gne_best" id="v1-d16_u7_Ran_Gne_best_1" value="neutral">
                             <label class="form-check-label" for="v1-d16_u7_Ran_Gne_best_1">
-                                anger
+                                neutral
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v1-d16_u7_Ran_Gne_best" id="v1-d16_u7_Ran_Gne_best_2" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v1-d16_u7_Ran_Gne_best" id="v1-d16_u7_Ran_Gne_best_2" value="anger">
                             <label class="form-check-label" for="v1-d16_u7_Ran_Gne_best_2">
-                                neutral
+                                anger
                             </label>
                         </div>
                     
@@ -184,21 +259,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v2-d23_u2_Rsu_Gne_best" id="v2-d23_u2_Rsu_Gne_best_1" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v2-d23_u2_Rsu_Gne_best" id="v2-d23_u2_Rsu_Gne_best_1" value="surprise">
                             <label class="form-check-label" for="v2-d23_u2_Rsu_Gne_best_1">
-                                neutral
+                                surprise
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v2-d23_u2_Rsu_Gne_best" id="v2-d23_u2_Rsu_Gne_best_2" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v2-d23_u2_Rsu_Gne_best" id="v2-d23_u2_Rsu_Gne_best_2" value="neutral">
                             <label class="form-check-label" for="v2-d23_u2_Rsu_Gne_best_2">
-                                surprise
+                                neutral
                             </label>
                         </div>
                     
@@ -252,21 +340,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v3-d24_u2_Rjo_Gne_best" id="v3-d24_u2_Rjo_Gne_best_1" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v3-d24_u2_Rjo_Gne_best" id="v3-d24_u2_Rjo_Gne_best_1" value="joy">
                             <label class="form-check-label" for="v3-d24_u2_Rjo_Gne_best_1">
-                                neutral
+                                joy
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v3-d24_u2_Rjo_Gne_best" id="v3-d24_u2_Rjo_Gne_best_2" value="joy">
+                            <input class="form-check-input best-keyword" type="radio" name="v3-d24_u2_Rjo_Gne_best" id="v3-d24_u2_Rjo_Gne_best_2" value="neutral">
                             <label class="form-check-label" for="v3-d24_u2_Rjo_Gne_best_2">
-                                joy
+                                neutral
                             </label>
                         </div>
                     
@@ -320,9 +421,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v4-d25_u12_Rjo_Gne_best" id="v4-d25_u12_Rjo_Gne_best_1" value="neutral">
@@ -388,9 +502,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v5-d25_u1_Rsa_Gne_best" id="v5-d25_u1_Rsa_Gne_best_1" value="sadness">
@@ -456,9 +583,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v6-d29_u9_Rsa_Gne_best" id="v6-d29_u9_Rsa_Gne_best_1" value="sadness">
@@ -524,9 +664,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v7-d2_u1_Rsu_Gne_best" id="v7-d2_u1_Rsu_Gne_best_1" value="neutral">
@@ -592,21 +745,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v8-d32_u6_Rjo_Gne_best" id="v8-d32_u6_Rjo_Gne_best_1" value="joy">
+                            <input class="form-check-input best-keyword" type="radio" name="v8-d32_u6_Rjo_Gne_best" id="v8-d32_u6_Rjo_Gne_best_1" value="neutral">
                             <label class="form-check-label" for="v8-d32_u6_Rjo_Gne_best_1">
-                                joy
+                                neutral
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v8-d32_u6_Rjo_Gne_best" id="v8-d32_u6_Rjo_Gne_best_2" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v8-d32_u6_Rjo_Gne_best" id="v8-d32_u6_Rjo_Gne_best_2" value="joy">
                             <label class="form-check-label" for="v8-d32_u6_Rjo_Gne_best_2">
-                                neutral
+                                joy
                             </label>
                         </div>
                     
@@ -660,9 +826,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v9-d37_u5_Rjo_Gne_best" id="v9-d37_u5_Rjo_Gne_best_1" value="neutral">
@@ -728,9 +907,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v10-d42_u2_Rdi_Gne_best" id="v10-d42_u2_Rdi_Gne_best_1" value="neutral">
@@ -796,21 +988,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v11-d4_u4_Rsu_Gne_best" id="v11-d4_u4_Rsu_Gne_best_1" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v11-d4_u4_Rsu_Gne_best" id="v11-d4_u4_Rsu_Gne_best_1" value="surprise">
                             <label class="form-check-label" for="v11-d4_u4_Rsu_Gne_best_1">
-                                neutral
+                                surprise
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v11-d4_u4_Rsu_Gne_best" id="v11-d4_u4_Rsu_Gne_best_2" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v11-d4_u4_Rsu_Gne_best" id="v11-d4_u4_Rsu_Gne_best_2" value="neutral">
                             <label class="form-check-label" for="v11-d4_u4_Rsu_Gne_best_2">
-                                surprise
+                                neutral
                             </label>
                         </div>
                     
@@ -864,9 +1069,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v12-d5_u7_Rjo_Gne_best" id="v12-d5_u7_Rjo_Gne_best_1" value="neutral">
@@ -932,9 +1150,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v13-d5_u8_Rjo_Gne_best" id="v13-d5_u8_Rjo_Gne_best_1" value="neutral">
@@ -1000,9 +1231,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v14-d7_u8_Rsu_Gne_best" id="v14-d7_u8_Rsu_Gne_best_1" value="neutral">
@@ -1068,9 +1312,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v15-d9_u12_Rsu_Gne_best" id="v15-d9_u12_Rsu_Gne_best_1" value="neutral">
@@ -1136,21 +1393,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v16-d100_u19_Rfr_Gsa_best" id="v16-d100_u19_Rfr_Gsa_best_1" value="frustration">
+                            <input class="form-check-input best-keyword" type="radio" name="v16-d100_u19_Rfr_Gsa_best" id="v16-d100_u19_Rfr_Gsa_best_1" value="sadness">
                             <label class="form-check-label" for="v16-d100_u19_Rfr_Gsa_best_1">
-                                frustration
+                                sadness
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v16-d100_u19_Rfr_Gsa_best" id="v16-d100_u19_Rfr_Gsa_best_2" value="sadness">
+                            <input class="form-check-input best-keyword" type="radio" name="v16-d100_u19_Rfr_Gsa_best" id="v16-d100_u19_Rfr_Gsa_best_2" value="frustration">
                             <label class="form-check-label" for="v16-d100_u19_Rfr_Gsa_best_2">
-                                sadness
+                                frustration
                             </label>
                         </div>
                     
@@ -1204,21 +1474,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v17-d101_u2_Rsu_Gsa_best" id="v17-d101_u2_Rsu_Gsa_best_1" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v17-d101_u2_Rsu_Gsa_best" id="v17-d101_u2_Rsu_Gsa_best_1" value="sadness">
                             <label class="form-check-label" for="v17-d101_u2_Rsu_Gsa_best_1">
-                                surprise
+                                sadness
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v17-d101_u2_Rsu_Gsa_best" id="v17-d101_u2_Rsu_Gsa_best_2" value="sadness">
+                            <input class="form-check-input best-keyword" type="radio" name="v17-d101_u2_Rsu_Gsa_best" id="v17-d101_u2_Rsu_Gsa_best_2" value="surprise">
                             <label class="form-check-label" for="v17-d101_u2_Rsu_Gsa_best_2">
-                                sadness
+                                surprise
                             </label>
                         </div>
                     
@@ -1272,9 +1555,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v18-d102_u7_Rne_Gsa_best" id="v18-d102_u7_Rne_Gsa_best_1" value="neutral">
@@ -1340,21 +1636,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v19-d107_u6_Rne_Gsa_best" id="v19-d107_u6_Rne_Gsa_best_1" value="sadness">
+                            <input class="form-check-input best-keyword" type="radio" name="v19-d107_u6_Rne_Gsa_best" id="v19-d107_u6_Rne_Gsa_best_1" value="neutral">
                             <label class="form-check-label" for="v19-d107_u6_Rne_Gsa_best_1">
-                                sadness
+                                neutral
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v19-d107_u6_Rne_Gsa_best" id="v19-d107_u6_Rne_Gsa_best_2" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v19-d107_u6_Rne_Gsa_best" id="v19-d107_u6_Rne_Gsa_best_2" value="sadness">
                             <label class="form-check-label" for="v19-d107_u6_Rne_Gsa_best_2">
-                                neutral
+                                sadness
                             </label>
                         </div>
                     
@@ -1408,21 +1717,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v20-d119_u1_Rsu_Gsa_best" id="v20-d119_u1_Rsu_Gsa_best_1" value="sadness">
+                            <input class="form-check-input best-keyword" type="radio" name="v20-d119_u1_Rsu_Gsa_best" id="v20-d119_u1_Rsu_Gsa_best_1" value="surprise">
                             <label class="form-check-label" for="v20-d119_u1_Rsu_Gsa_best_1">
-                                sadness
+                                surprise
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v20-d119_u1_Rsu_Gsa_best" id="v20-d119_u1_Rsu_Gsa_best_2" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v20-d119_u1_Rsu_Gsa_best" id="v20-d119_u1_Rsu_Gsa_best_2" value="sadness">
                             <label class="form-check-label" for="v20-d119_u1_Rsu_Gsa_best_2">
-                                surprise
+                                sadness
                             </label>
                         </div>
                     
@@ -1476,21 +1798,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v21-d124_u1_Rne_Gsa_best" id="v21-d124_u1_Rne_Gsa_best_1" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v21-d124_u1_Rne_Gsa_best" id="v21-d124_u1_Rne_Gsa_best_1" value="sadness">
                             <label class="form-check-label" for="v21-d124_u1_Rne_Gsa_best_1">
-                                neutral
+                                sadness
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v21-d124_u1_Rne_Gsa_best" id="v21-d124_u1_Rne_Gsa_best_2" value="sadness">
+                            <input class="form-check-input best-keyword" type="radio" name="v21-d124_u1_Rne_Gsa_best" id="v21-d124_u1_Rne_Gsa_best_2" value="neutral">
                             <label class="form-check-label" for="v21-d124_u1_Rne_Gsa_best_2">
-                                sadness
+                                neutral
                             </label>
                         </div>
                     
@@ -1544,21 +1879,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v22-d130_u10_Rne_Gsa_best" id="v22-d130_u10_Rne_Gsa_best_1" value="sadness">
+                            <input class="form-check-input best-keyword" type="radio" name="v22-d130_u10_Rne_Gsa_best" id="v22-d130_u10_Rne_Gsa_best_1" value="neutral">
                             <label class="form-check-label" for="v22-d130_u10_Rne_Gsa_best_1">
-                                sadness
+                                neutral
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v22-d130_u10_Rne_Gsa_best" id="v22-d130_u10_Rne_Gsa_best_2" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v22-d130_u10_Rne_Gsa_best" id="v22-d130_u10_Rne_Gsa_best_2" value="sadness">
                             <label class="form-check-label" for="v22-d130_u10_Rne_Gsa_best_2">
-                                neutral
+                                sadness
                             </label>
                         </div>
                     
@@ -1612,9 +1960,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v23-d17_u11_Ran_Gsa_best" id="v23-d17_u11_Ran_Gsa_best_1" value="sadness">
@@ -1680,9 +2041,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v24-d2_u2_Rne_Gsa_best" id="v24-d2_u2_Rne_Gsa_best_1" value="sadness">
@@ -1748,9 +2122,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v25-d33_u0_Rne_Gsa_best" id="v25-d33_u0_Rne_Gsa_best_1" value="neutral">
@@ -1816,9 +2203,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v26-d33_u6_Rfe_Gsa_best" id="v26-d33_u6_Rfe_Gsa_best_1" value="sadness">
@@ -1884,21 +2284,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v27-d47_u6_Rne_Gsa_best" id="v27-d47_u6_Rne_Gsa_best_1" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v27-d47_u6_Rne_Gsa_best" id="v27-d47_u6_Rne_Gsa_best_1" value="sadness">
                             <label class="form-check-label" for="v27-d47_u6_Rne_Gsa_best_1">
-                                neutral
+                                sadness
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v27-d47_u6_Rne_Gsa_best" id="v27-d47_u6_Rne_Gsa_best_2" value="sadness">
+                            <input class="form-check-input best-keyword" type="radio" name="v27-d47_u6_Rne_Gsa_best" id="v27-d47_u6_Rne_Gsa_best_2" value="neutral">
                             <label class="form-check-label" for="v27-d47_u6_Rne_Gsa_best_2">
-                                sadness
+                                neutral
                             </label>
                         </div>
                     
@@ -1952,9 +2365,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v28-d68_u3_Rsu_Gsa_best" id="v28-d68_u3_Rsu_Gsa_best_1" value="sadness">
@@ -2020,9 +2446,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v29-d83_u7_Rfe_Gsa_best" id="v29-d83_u7_Rfe_Gsa_best_1" value="fear">
@@ -2088,9 +2527,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v30-d88_u8_Rne_Gsa_best" id="v30-d88_u8_Rne_Gsa_best_1" value="neutral">
@@ -2156,21 +2608,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v31-d123_u10_Ran_Gsu_best" id="v31-d123_u10_Ran_Gsu_best_1" value="anger">
+                            <input class="form-check-input best-keyword" type="radio" name="v31-d123_u10_Ran_Gsu_best" id="v31-d123_u10_Ran_Gsu_best_1" value="surprise">
                             <label class="form-check-label" for="v31-d123_u10_Ran_Gsu_best_1">
-                                anger
+                                surprise
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v31-d123_u10_Ran_Gsu_best" id="v31-d123_u10_Ran_Gsu_best_2" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v31-d123_u10_Ran_Gsu_best" id="v31-d123_u10_Ran_Gsu_best_2" value="anger">
                             <label class="form-check-label" for="v31-d123_u10_Ran_Gsu_best_2">
-                                surprise
+                                anger
                             </label>
                         </div>
                     
@@ -2224,9 +2689,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v32-d124_u10_Rjo_Gsu_best" id="v32-d124_u10_Rjo_Gsu_best_1" value="joy">
@@ -2292,9 +2770,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v33-d125_u22_Ran_Gsu_best" id="v33-d125_u22_Ran_Gsu_best_1" value="surprise">
@@ -2360,21 +2851,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v34-d138_u2_Rfe_Gsu_best" id="v34-d138_u2_Rfe_Gsu_best_1" value="fear">
+                            <input class="form-check-input best-keyword" type="radio" name="v34-d138_u2_Rfe_Gsu_best" id="v34-d138_u2_Rfe_Gsu_best_1" value="surprise">
                             <label class="form-check-label" for="v34-d138_u2_Rfe_Gsu_best_1">
-                                fear
+                                surprise
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v34-d138_u2_Rfe_Gsu_best" id="v34-d138_u2_Rfe_Gsu_best_2" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v34-d138_u2_Rfe_Gsu_best" id="v34-d138_u2_Rfe_Gsu_best_2" value="fear">
                             <label class="form-check-label" for="v34-d138_u2_Rfe_Gsu_best_2">
-                                surprise
+                                fear
                             </label>
                         </div>
                     
@@ -2428,21 +2932,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v35-d2_u3_Ran_Gsu_best" id="v35-d2_u3_Ran_Gsu_best_1" value="anger">
+                            <input class="form-check-input best-keyword" type="radio" name="v35-d2_u3_Ran_Gsu_best" id="v35-d2_u3_Ran_Gsu_best_1" value="surprise">
                             <label class="form-check-label" for="v35-d2_u3_Ran_Gsu_best_1">
-                                anger
+                                surprise
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v35-d2_u3_Ran_Gsu_best" id="v35-d2_u3_Ran_Gsu_best_2" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v35-d2_u3_Ran_Gsu_best" id="v35-d2_u3_Ran_Gsu_best_2" value="anger">
                             <label class="form-check-label" for="v35-d2_u3_Ran_Gsu_best_2">
-                                surprise
+                                anger
                             </label>
                         </div>
                     
@@ -2496,21 +3013,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v36-d32_u0_Rjo_Gsu_best" id="v36-d32_u0_Rjo_Gsu_best_1" value="joy">
+                            <input class="form-check-input best-keyword" type="radio" name="v36-d32_u0_Rjo_Gsu_best" id="v36-d32_u0_Rjo_Gsu_best_1" value="surprise">
                             <label class="form-check-label" for="v36-d32_u0_Rjo_Gsu_best_1">
-                                joy
+                                surprise
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v36-d32_u0_Rjo_Gsu_best" id="v36-d32_u0_Rjo_Gsu_best_2" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v36-d32_u0_Rjo_Gsu_best" id="v36-d32_u0_Rjo_Gsu_best_2" value="joy">
                             <label class="form-check-label" for="v36-d32_u0_Rjo_Gsu_best_2">
-                                surprise
+                                joy
                             </label>
                         </div>
                     
@@ -2564,9 +3094,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v37-d53_u0_Rjo_Gsu_best" id="v37-d53_u0_Rjo_Gsu_best_1" value="surprise">
@@ -2632,9 +3175,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v38-d56_u10_Rjo_Gsu_best" id="v38-d56_u10_Rjo_Gsu_best_1" value="joy">
@@ -2700,9 +3256,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v39-d61_u0_Rjo_Gsu_best" id="v39-d61_u0_Rjo_Gsu_best_1" value="surprise">
@@ -2768,21 +3337,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v40-d65_u10_Rne_Gsu_best" id="v40-d65_u10_Rne_Gsu_best_1" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v40-d65_u10_Rne_Gsu_best" id="v40-d65_u10_Rne_Gsu_best_1" value="neutral">
                             <label class="form-check-label" for="v40-d65_u10_Rne_Gsu_best_1">
-                                surprise
+                                neutral
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v40-d65_u10_Rne_Gsu_best" id="v40-d65_u10_Rne_Gsu_best_2" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v40-d65_u10_Rne_Gsu_best" id="v40-d65_u10_Rne_Gsu_best_2" value="surprise">
                             <label class="form-check-label" for="v40-d65_u10_Rne_Gsu_best_2">
-                                neutral
+                                surprise
                             </label>
                         </div>
                     
@@ -2836,21 +3418,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v41-d65_u4_Rne_Gsu_best" id="v41-d65_u4_Rne_Gsu_best_1" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v41-d65_u4_Rne_Gsu_best" id="v41-d65_u4_Rne_Gsu_best_1" value="neutral">
                             <label class="form-check-label" for="v41-d65_u4_Rne_Gsu_best_1">
-                                surprise
+                                neutral
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v41-d65_u4_Rne_Gsu_best" id="v41-d65_u4_Rne_Gsu_best_2" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v41-d65_u4_Rne_Gsu_best" id="v41-d65_u4_Rne_Gsu_best_2" value="surprise">
                             <label class="form-check-label" for="v41-d65_u4_Rne_Gsu_best_2">
-                                neutral
+                                surprise
                             </label>
                         </div>
                     
@@ -2904,9 +3499,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v42-d77_u0_Ran_Gsu_best" id="v42-d77_u0_Ran_Gsu_best_1" value="surprise">
@@ -2972,21 +3580,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v43-d83_u6_Rne_Gsu_best" id="v43-d83_u6_Rne_Gsu_best_1" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v43-d83_u6_Rne_Gsu_best" id="v43-d83_u6_Rne_Gsu_best_1" value="neutral">
                             <label class="form-check-label" for="v43-d83_u6_Rne_Gsu_best_1">
-                                surprise
+                                neutral
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v43-d83_u6_Rne_Gsu_best" id="v43-d83_u6_Rne_Gsu_best_2" value="neutral">
+                            <input class="form-check-input best-keyword" type="radio" name="v43-d83_u6_Rne_Gsu_best" id="v43-d83_u6_Rne_Gsu_best_2" value="surprise">
                             <label class="form-check-label" for="v43-d83_u6_Rne_Gsu_best_2">
-                                neutral
+                                surprise
                             </label>
                         </div>
                     
@@ -3040,9 +3661,22 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
                             <input class="form-check-input best-keyword" type="radio" name="v44-d90_u2_Rdi_Gsu_best" id="v44-d90_u2_Rdi_Gsu_best_1" value="disgust">
@@ -3108,21 +3742,34 @@
                     }
                 </script>
 
-                <p>Please select the best emotion keyword that describes the emotion state of the clip. If there are more than two keywords, also select the second-best keyword.</p>
+                <p>Please select the best emotion keyword that describes the emotion state of the clip. <strong>Focus on identifying the dominant emotion in each clip.</strong></p>
+ 
+
                 <div class="form-group">
                     <p><strong>Best Described:</strong></p>
+                        <div class="tooltip-container">
+                            <i class="fas fa-info-circle" style="color: #007bff; font-size: 24px;"></i> <!-- Info icon -->
+                            <div class="tooltip-text">
+                                <p><strong>Joy</strong>: Associated with feelings of joy, satisfaction, and contentment.</p>
+                                <p><strong>Sadness</strong>: Represents feelings of loss, disappointment, or despair.</p>
+                                <p><strong>Anger</strong>: Reflects frustration, injustice, or perceived threats.</p>
+                                <p><strong>Fear</strong>: Stems from perceived danger or threat, leading to heightened alertness.</p>
+                                <p><strong>Disgust</strong>: Indicates rejection or aversion, often triggered by something unpleasant or offensive.</p>
+                                <p><strong>Surprise</strong>: A reaction to something unexpected, either positive or negative.</p>
+                            </div>
+                        </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v45-d95_u4_Ran_Gsu_best" id="v45-d95_u4_Ran_Gsu_best_1" value="surprise">
+                            <input class="form-check-input best-keyword" type="radio" name="v45-d95_u4_Ran_Gsu_best" id="v45-d95_u4_Ran_Gsu_best_1" value="anger">
                             <label class="form-check-label" for="v45-d95_u4_Ran_Gsu_best_1">
-                                surprise
+                                anger
                             </label>
                         </div>
                     
                         <div class="form-check">
-                            <input class="form-check-input best-keyword" type="radio" name="v45-d95_u4_Ran_Gsu_best" id="v45-d95_u4_Ran_Gsu_best_2" value="anger">
+                            <input class="form-check-input best-keyword" type="radio" name="v45-d95_u4_Ran_Gsu_best" id="v45-d95_u4_Ran_Gsu_best_2" value="surprise">
                             <label class="form-check-label" for="v45-d95_u4_Ran_Gsu_best_2">
-                                anger
+                                surprise
                             </label>
                         </div>
                     
@@ -3137,10 +3784,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const questions = document.querySelectorAll('.question');
-            const min = 21;
-            const max = 42;
-            // let n = Math.floor(Math.random() * ((max - min) / 7 + 1)) * 7 + min; //Define the number of random questions to display
-            const n =42
+            const n = 42; //Define the number of random questions to display
             const shuffled = [...questions].sort(() => Math.random() - 0.5).slice(0, n);
             
             // Hide all questions first
@@ -3166,6 +3810,17 @@
                 secondBestInputs.forEach(input => input.required = true);
             });
         });
+
+            // Tooltip functionality for the information icon
+        document.addEventListener('DOMContentLoaded', () => {
+                const tooltipContainers = document.querySelectorAll('.tooltip-container');
+
+                tooltipContainers.forEach(tooltipContainer => {
+                    tooltipContainer.addEventListener('click', () => {
+                        tooltipContainer.classList.toggle('active');
+                    });
+                });
+            });
         
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.question[style="display: block;"]').forEach(question => {
