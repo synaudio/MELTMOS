@@ -1,4 +1,5 @@
 # User-specific files
+__pycache__/
 .venv/
 # Ignore build output
 build/
